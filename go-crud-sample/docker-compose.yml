@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: build/package/dev/server.dockerfile
       target: builder
-    env_file: ./configs/mysql.env
+    env_file: ./configs/server.env
     depends_on:
       - mysql
     image: server-sample-img

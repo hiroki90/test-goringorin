@@ -56,3 +56,9 @@ TODO: 今後 air でライヴリロードする
 `hoge`
 
 TODO: docker build/run/exec のコマンド追加
+
+### Docker が起動できない場合
+
+Windows の問題でエラーが発生する場合 Docker は使用しない
+
+TODO: Docker を使わないローカル環境構築

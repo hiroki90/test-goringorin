@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: build/package/dev/server.dockerfile
+      target: builder
+    env_file: ./configs/mysql.env
+    depends_on:
+      - mysql
+    image: server-sample-img
+    container_name: server-sample-cont
+    ports:
+      - 3000:3000
+    command: go run ./cmd/go-crud-sample/main.go
+    volumes:
+      - .:/go-crud-sample
+
+  mysql:
+    build:
+      context: .
+      dockerfile: build/package/dev/mysql.dockerfile
+    env_file: ./configs/mysql.env
+    image: mysql-sample-img
+    container_name: mysql-sample-cont
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-vol:/var/lib/mysql
+      - ./configs/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./db/mysql/log:/var/log
+
+volumes:
+  mysql-vol:

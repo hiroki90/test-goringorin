@@ -17,7 +17,7 @@
 
 ```shell
 go-crud-sample
-├── bin         ライブリロード用のバイナリ出力
+├── bin         ライヴリロード用のバイナリ出力
 ├── build       Docker 等のパッケージファイル
 ├── cmd         main 関数が定義されたファイル
 ├── configs     設定ファイル
@@ -36,14 +36,14 @@ Go
 
 `hoge`
 
-TODO: Windows 用のインストール方法を追加
+TODO: Windows 用のインストール方法を追加  
 TODO: 今後 air でライヴリロードする
 
 ### Env
 
 - configs 配下の .env で管理
 - docker-compose.yml の `env_file` に Path を指定
-- YAML から取得する方法がスタンダードだが Go のコードが増えるため env で代用
+- YAML からの取得がスタンダードだが Go コードが増えるため .env で簡易化
 
 ## Execution
 

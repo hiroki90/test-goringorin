@@ -6,10 +6,10 @@
 
 ### Versions
 
-Go v1.15
-macOS 64 bit
-Windows 10
-Docker Engine v19.03``
+Go v1.15  
+macOS 64 bit  
+Windows10 64 bit  
+Docker Engine v19.03  
 
 ### Directories
 

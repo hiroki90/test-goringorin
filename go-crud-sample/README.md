@@ -6,10 +6,10 @@
 
 ### Versions
 
-Go v1.15  
-macOS 64 bit  
-Windows10 64 bit  
-Docker Engine v19.03  
+- Go v1.15  
+- macOS 64 bit  
+- Windows10 64 bit  
+- Docker Engine v19.03  
 
 ### Directories
 
@@ -17,7 +17,7 @@ Docker Engine v19.03
 
 ```shell
 go-crud-sample
-├── bin         バイナリ出力
+├── bin         ライブリロード用のバイナリ出力
 ├── build       Docker 等のパッケージファイル
 ├── cmd         main 関数が定義されたファイル
 ├── configs     設定ファイル
@@ -36,6 +36,7 @@ Go
 
 `hoge`
 
+TODO: Windows 用のインストール方法を追加
 TODO: 今後 air でライヴリロードする
 
 ### Env
@@ -53,3 +54,5 @@ TODO: 今後 air でライヴリロードする
 ### docker-compose を使わない場合
 
 `hoge`
+
+TODO: docker build/run/exec のコマンド追加

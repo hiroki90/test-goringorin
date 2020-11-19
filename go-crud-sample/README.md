@@ -13,7 +13,7 @@
 
 ### Directories
 
-参考: golang-standards/project-layout
+参考: [golang-standards/project-layout](https://github.com/golang-standards/project-layout)
 
 ```shell
 go-crud-sample

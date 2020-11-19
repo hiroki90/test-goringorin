@@ -35,3 +35,21 @@ go-crud-sample
 Go
 
 `hoge`
+
+TODO: 今後 air でライヴリロードする
+
+### Env
+
+- configs 配下の .env で管理
+- docker-compose.yml の `env_file` に Path を指定
+- YAML から取得する方法がスタンダードだが Go のコードが増えるため env で代用
+
+## Execution
+
+### docker-compose を使う場合
+
+`$ docker-compose up --build -d`
+
+### docker-compose を使わない場合
+
+`hoge`

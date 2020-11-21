@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"github.com/hiroki90/goringorin/go-crud-sample/db"
+	"log"
+)
 
 func main() {
-	fmt.Println("goringorin")
+	_,err:=db.NewDBConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

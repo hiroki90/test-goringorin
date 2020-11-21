@@ -28,7 +28,7 @@ func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
 		return
 	}
 
-	err = a.accountsRepository.Create(c, &req)
+	err = a.accountsRepository.Create(ctx, &req)
 	if err != nil {
 		ctx.Status(http.StatusInternalServerError)
 		return

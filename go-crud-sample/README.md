@@ -34,9 +34,7 @@ go-crud-sample
 
 Go
 
-`hoge`
-
-TODO: Windows 用のインストール方法を追加  
+参考: [VSCodeでGo言語の開発環境を構築する](https://qiita.com/melty_go/items/c977ba594efcffc8b567)  
 TODO: 今後 air でライヴリロードする
 
 ### Env
@@ -49,16 +47,39 @@ TODO: 今後 air でライヴリロードする
 
 ### docker-compose を使う場合
 
-`$ docker-compose up --build -d`
+`% docker-compose up --build -d`
 
 ### docker-compose を使わない場合
 
-`hoge`
+Docker Image をビルド
 
-TODO: docker build/run/exec のコマンド追加
+```shell
+% docker build -f {path/to/dockerfile} -t {image-name:tag}
+# dockerfile が多くなると大変
+```
+
+Docker Container を起動
+
+```shell
+% docker run --rm -it \
+  -p {host-port:container-port} \
+  -v {host-contents:container-content} \
+  --name {container name}
+# コマンドが長くなると大変
+```
+
+Docker Exec で実行
+
+```shell
+% docker exec {container-name} {command}
+# Container 内で直接コマンドを実行したいとき
+# Container 内で直接エラー確認したいとき
+```
 
 ### Docker が起動できない場合
 
 Windows の問題でエラーが発生する場合 Docker は使用しない
 
-TODO: Docker を使わないローカル環境構築
+MySQL 環境構築
+
+[MySQLの開発環境を用意しよう (windows)](https://prog-8.com/docs/mysql-env-win)

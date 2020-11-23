@@ -6,7 +6,7 @@ COPY ./ ./
 
 RUN set -ox pipefail \
   && apk update \
-  && apk add --no-cache bash curl \
+  && apk add --no-cache bash curl mysql-client \
   && rm -rf /var/cache/apk/*
 
 # NOTE: マルチステージビルド見本

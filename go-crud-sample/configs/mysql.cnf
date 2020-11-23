@@ -31,5 +31,5 @@ general_log=0
 pid_file=/var/run/mysqld/mysqld.pid
 
 # ソケットファイル
-socket=/var/lib/mysql/mysql.sock
+socket=/run/mysqld/mysqld.sock
 

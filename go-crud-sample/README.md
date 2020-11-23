@@ -47,7 +47,17 @@ TODO: 今後 air でライヴリロードする
 
 ### docker-compose を使う場合
 
+docker-compose.yml に定義した services を立ち上げる
+
 `% docker-compose up --build -d`
+
+mysql コンテナに対して，外部のコンテナから接続確認  
+alpine イメージの場合は mysql-client パッケージを  `apk add`
+
+```shell
+% docker-compose exec server \
+  mysql -u root -pserver_root_pwd -h mysql -P 3306 --protocol=tcp -e "show databases;"
+```
 
 ### docker-compose を使わない場合
 

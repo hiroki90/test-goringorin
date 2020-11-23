@@ -23,3 +23,15 @@ dev-logs: ## docker-compose logs -f
 .PHONY: go-build
 go-build: ## go build in the macbook
 	GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/server ./cmd/go-crud-sample/main.go
+
+.PHONY: lint
+lint: ## linted by golangci-lint
+	golangci-lint run -c ./configs/.golangci.yml
+
+.PHONY: goimports
+fmt-import: ## formated by goimports
+	goimports -w ./
+
+.PHONY: gofmt
+fmt: ## formatted by default fmt
+	gofmt -w ./

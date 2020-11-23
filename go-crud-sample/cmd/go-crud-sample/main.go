@@ -1,11 +1,12 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hiroki90/goringorin/go-crud-sample/db"
 	"github.com/hiroki90/goringorin/go-crud-sample/internal"
-	"log"
-	"os"
 )
 
 func main() {

@@ -63,7 +63,7 @@ Docker Container を起動
 ```shell
 % docker run --rm -it \
   -p {host-port:container-port} \
-  -v {host-contents:container-content} \
+  -v {host-contents:container-contents} \
   --name {container name}
 # コマンドが長くなると大変
 ```
@@ -82,4 +82,5 @@ Windows の問題でエラーが発生する場合 Docker は使用しない
 
 MySQL 環境構築
 
+[Windows 版 MySQL インストール手順](https://qiita.com/ryo-sato/items/bd026f5e627a746f1734)  
 [MySQLの開発環境を用意しよう (windows)](https://prog-8.com/docs/mysql-env-win)

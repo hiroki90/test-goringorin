@@ -1,8 +1,9 @@
 package internal
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func NewAccountsHandler(accountsRepository *AccountsRepository) *AccountsHandler {

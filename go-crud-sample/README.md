@@ -47,7 +47,17 @@ TODO: 今後 air でライヴリロードする
 
 ### docker-compose を使う場合
 
+docker-compose.yml に定義した services を立ち上げる
+
 `% docker-compose up --build -d`
+
+mysql コンテナに対して，外部のコンテナから接続確認  
+alpine イメージの場合は mysql-client パッケージを  `apk add`
+
+```shell
+% docker-compose exec server \
+  mysql -u root -pserver_root_pwd -h mysql -P 3306 --protocol=tcp -e "show databases;"
+```
 
 ### docker-compose を使わない場合
 
@@ -63,7 +73,7 @@ Docker Container を起動
 ```shell
 % docker run --rm -it \
   -p {host-port:container-port} \
-  -v {host-contents:container-content} \
+  -v {host-contents:container-contents} \
   --name {container name}
 # コマンドが長くなると大変
 ```
@@ -82,4 +92,5 @@ Windows の問題でエラーが発生する場合 Docker は使用しない
 
 MySQL 環境構築
 
+[Windows 版 MySQL インストール手順](https://qiita.com/ryo-sato/items/bd026f5e627a746f1734)  
 [MySQLの開発環境を用意しよう (windows)](https://prog-8.com/docs/mysql-env-win)

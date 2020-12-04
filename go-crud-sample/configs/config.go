@@ -6,6 +6,6 @@ type Config struct {
 
 func NewConfig() *Config {
 	return &Config{
-		DBDial: "server_user:server_pwd@tcp(localhost:3306)/server_db?parseTime=true",
+		DBDial: "server_user:server_pwd@tcp(mysql:3306)/server_db?parseTime=true",
 	}
 }

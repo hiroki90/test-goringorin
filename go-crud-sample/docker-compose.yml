@@ -12,7 +12,6 @@ services:
     container_name: server-sample-cont
     ports:
       - 8080:8080
-    command: go run ./cmd/go-crud-sample/main.go
     volumes:
       - .:/go-crud-sample
 

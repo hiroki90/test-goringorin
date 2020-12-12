@@ -27,6 +27,8 @@ func main() {
 
 	e.POST("/accounts", accountsHandler.CreateAccountHandle)
 	e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)
+	e.PUT("/accounts", accountsHandler.UpdateAccountHandle)
+	e.DELETE("/accounts/:accountID", accountsHandler.DeleteAccountHandle)
 
 	_ = e.Run(":" + port)
 }

@@ -29,8 +29,7 @@ func (a AccountsRepository) Create(ctx context.Context, r *Account) error {
 }
 
 func (a AccountsRepository) FindByID(ctx context.Context, id string) (*Account, error) {
-	row := a.conn.QueryRow("SELECT id,name,age FROM accounts;")
-
+	row := a.conn.QueryRow(fmt.Sprintf("SELECT id,name,age FROM accounts where id = '%s';", id))
 	var result Account
 	err := row.Scan(&result.ID, &result.Name, &result.Age)
 	if err != nil {
@@ -38,4 +37,30 @@ func (a AccountsRepository) FindByID(ctx context.Context, id string) (*Account, 
 	}
 
 	return &result, nil
+}
+
+func (a AccountsRepository) Update(ctx context.Context, r *Account) error {
+	upd, preErr := a.conn.Prepare("UPDATE accounts SET name=?, age=? WHERE id=?")
+	if preErr != nil {
+		return preErr
+	}
+
+	if _, exeErr := upd.Exec(r.Name, r.Age, r.ID); exeErr != nil {
+		return exeErr
+	}
+
+	return nil
+}
+
+func (a AccountsRepository) Delete(ctx context.Context, id string) error {
+	dlt, preErr := a.conn.Prepare("DELETE FROM accounts WHERE id=?")
+	if preErr != nil {
+		return preErr
+	}
+
+	if _, exeErr := dlt.Exec(id); exeErr != nil {
+		return exeErr
+	}
+
+	return nil
 }

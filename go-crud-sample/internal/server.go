@@ -53,3 +53,44 @@ func (a AccountsHandler) GetAccountHandle(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, res)
 }
+
+func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
+	var req Account
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
+
+	err = req.Validate()
+	if err != nil {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
+
+	err = a.accountsRepository.Update(ctx, &req)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+
+	ctx.Status(http.StatusOK)
+}
+
+func (a AccountsHandler) DeleteAccountHandle(ctx *gin.Context) {
+	accountID := ctx.Param("accountID")
+	if accountID == "" {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
+
+	err := a.accountsRepository.Delete(ctx, accountID)
+
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+
+	ctx.Status(http.StatusOK)
+}

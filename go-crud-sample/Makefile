@@ -21,8 +21,8 @@ dev-logs: ## docker-compose logs -f
 	docker-compose logs -f
 
 .PHONY: go-build
-go-build: ## go build in the macbook
-	GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/server ./cmd/go-crud-sample/main.go
+go-build: ## 環境依存エラーを回避するため GOOS=linux GOARCH=amd64 CGO_ENABLED=0 を指定
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/server ./cmd/go-crud-sample/main.go
 
 .PHONY: lint
 lint: ## linted by golangci-lint
@@ -35,3 +35,12 @@ fmt-import: ## formated by goimports
 .PHONY: gofmt
 fmt: ## formatted by default fmt
 	gofmt -w ./
+
+.PHONY: air
+air: ## air
+	air -c ./configs/.air.toml
+
+.PHONY: mysql
+mysql: ## mysql
+	docker-compose exec server \
+    mysql -u root -pserver_root_pwd -h mysql -P 3306 --protocol=tcp

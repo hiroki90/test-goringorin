@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"github.com/hiroki90/goringorin/schedule-tool/internal/model"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +16,7 @@ type AccountsHandler struct {
 }
 
 func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
-	var req Account
+	var req model.Account
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -23,11 +24,12 @@ func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
 		return
 	}
 
-	err = req.Validate()
-	if err != nil {
-		ctx.Status(http.StatusBadRequest)
-		return
-	}
+    // NOTE: ozzo-validation を上手く go get できないため保留
+	//err = req.Validate()
+	//if err != nil {
+	//	ctx.Status(http.StatusBadRequest)
+	//	return
+	//}
 
 	err = a.accountsRepository.Create(ctx, &req)
 	if err != nil {
@@ -55,7 +57,7 @@ func (a AccountsHandler) GetAccountHandle(ctx *gin.Context) {
 }
 
 func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
-	var req Account
+	var req model.Account
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -63,7 +65,7 @@ func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
 		return
 	}
 
-	err = req.Validate()
+	//err = req.Validate()
 	if err != nil {
 		ctx.Status(http.StatusBadRequest)
 		return

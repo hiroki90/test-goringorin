@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/hiroki90/goringorin/schedule-tool/internal/model"
 )
 
 func NewAccountsRepository(conn *sql.DB) *AccountsRepository {
@@ -14,7 +15,7 @@ type AccountsRepository struct {
 	conn *sql.DB
 }
 
-func (a AccountsRepository) Create(ctx context.Context, r *Account) error {
+func (a AccountsRepository) Create(ctx context.Context, r *model.Account) error {
 	ins, err := a.conn.Prepare("INSERT INTO accounts(name,age) VALUES(?,?);")
 	if err != nil {
 		return fmt.Errorf("%w", err)
@@ -28,9 +29,9 @@ func (a AccountsRepository) Create(ctx context.Context, r *Account) error {
 	return nil
 }
 
-func (a AccountsRepository) FindByID(ctx context.Context, id string) (*Account, error) {
+func (a AccountsRepository) FindByID(ctx context.Context, id string) (*model.Account, error) {
 	row := a.conn.QueryRow(fmt.Sprintf("SELECT id,name,age FROM accounts where id = '%s';", id))
-	var result Account
+	var result model.Account
 	err := row.Scan(&result.ID, &result.Name, &result.Age)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
@@ -39,7 +40,7 @@ func (a AccountsRepository) FindByID(ctx context.Context, id string) (*Account, 
 	return &result, nil
 }
 
-func (a AccountsRepository) Update(ctx context.Context, r *Account) error {
+func (a AccountsRepository) Update(ctx context.Context, r *model.Account) error {
 	upd, preErr := a.conn.Prepare("UPDATE accounts SET name=?, age=? WHERE id=?")
 	if preErr != nil {
 		return preErr

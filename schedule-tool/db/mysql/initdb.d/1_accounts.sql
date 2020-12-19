@@ -4,3 +4,5 @@ CREATE TABLE IF NOT EXISTS accounts(
     age  INT UNSIGNED NOT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- TODO: shedule_id 外部キー追加

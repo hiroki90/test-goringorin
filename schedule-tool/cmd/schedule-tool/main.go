@@ -1,7 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"github.com/hiroki90/goringorin/schedule-tool/internal/infra"
+	"github.com/hiroki90/goringorin/schedule-tool/internal/webapi"
 	"log"
 	"os"
 
@@ -21,11 +22,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// web層
-	accountsRepository := internal.NewAccountsRepository(conn)
-	accountsHandler := internal.NewAccountsHandler(accountsRepository)
-
-	e := gin.Default()
+	// Account
+	accountsRepository := infra.NewAccountRepository(conn)
+	accountsHandler := webapi.NewAccountsHandler(accountsRepository)
 
 	e.POST("/accounts", accountsHandler.CreateAccountHandle)
 	e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)

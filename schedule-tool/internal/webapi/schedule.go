@@ -8,16 +8,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewAccountsHandler(accountsRepository *infra.AccountsRepository) *AccountsHandler {
-	return &AccountsHandler{accountsRepository: accountsRepository}
+func NewSchedulesHandler(schedulesRepository *infra.SchedulesRepository) *SchedulesHandler {
+	return &SchedulesHandler{schedulesRepository: schedulesRepository}
 }
 
-type AccountsHandler struct {
-	accountsRepository *infra.AccountsRepository
+type SchedulesHandler struct {
+	schedulesRepository *infra.SchedulesRepository
 }
 
-func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
-	var req model.Account
+func (a SchedulesHandler) CreateScheduleHandle(ctx *gin.Context) {
+	var req model.Schedule
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -32,7 +32,7 @@ func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
 	//	return
 	//}
 
-	err = a.accountsRepository.Create(ctx, &req)
+	err = a.schedulesRepository.Create(ctx, &req)
 	if err != nil {
 		ctx.Status(http.StatusInternalServerError)
 		return
@@ -41,14 +41,14 @@ func (a AccountsHandler) CreateAccountHandle(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
 
-func (a AccountsHandler) GetAccountHandle(ctx *gin.Context) {
-	accountID := ctx.Param("accountID")
-	if accountID == "" {
+func (a SchedulesHandler) GetScheduleHandle(ctx *gin.Context) {
+	scheduleID := ctx.Param("scheduleID")
+	if scheduleID == "" {
 		ctx.Status(http.StatusBadRequest)
 		return
 	}
 
-	res, err := a.accountsRepository.FindByID(ctx, accountID)
+	res, err := a.schedulesRepository.FindByID(ctx, scheduleID)
 	if err != nil {
 		ctx.Status(http.StatusInternalServerError)
 		return
@@ -57,8 +57,8 @@ func (a AccountsHandler) GetAccountHandle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
-func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
-	var req model.Account
+func (a SchedulesHandler) UpdateScheduleHandle(ctx *gin.Context) {
+	var req model.Schedule
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -67,12 +67,12 @@ func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
 	}
 
 	//err = req.Validate()
-	//if err != nil {
-	//	ctx.Status(http.StatusBadRequest)
-	//	return
-	//}
+	if err != nil {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
 
-	err = a.accountsRepository.Update(ctx, &req)
+	err = a.schedulesRepository.Update(ctx, &req)
 	if err != nil {
 		ctx.Status(http.StatusInternalServerError)
 		return
@@ -81,14 +81,14 @@ func (a AccountsHandler) UpdateAccountHandle(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
 
-func (a AccountsHandler) DeleteAccountHandle(ctx *gin.Context) {
-	accountID := ctx.Param("accountID")
-	if accountID == "" {
+func (a SchedulesHandler) DeleteScheduleHandle(ctx *gin.Context) {
+	scheduleID := ctx.Param("scheduleID")
+	if scheduleID == "" {
 		ctx.Status(http.StatusBadRequest)
 		return
 	}
 
-	err := a.accountsRepository.Delete(ctx, accountID)
+	err := a.schedulesRepository.Delete(ctx, scheduleID)
 
 	if err != nil {
 		ctx.Status(http.StatusInternalServerError)

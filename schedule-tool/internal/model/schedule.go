@@ -6,3 +6,5 @@ type Schedule struct {
 	State     int
 	AccountID string
 }
+
+type Schedules []Schedule

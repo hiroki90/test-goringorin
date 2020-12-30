@@ -5,9 +5,8 @@ package model
 type Account struct {
 	ID   string
 	Name string
-//	TODO: ScheduleID追加
+	//TODO: ScheduleID追加
 }
-
 
 //func (a Account) Validate() error {
 //	return validation.ValidateStruct(&a,

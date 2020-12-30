@@ -57,6 +57,23 @@ func (a SchedulesHandler) GetScheduleHandle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
+func (a SchedulesHandler) GetSchedulesByAccountIDHandle(ctx *gin.Context) {
+	scheduleID := ctx.Param("scheduleID")
+	if scheduleID == "" {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
+
+	res, err := a.schedulesRepository.FindByAccountID(ctx, scheduleID)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, res)
+}
+//TODO: func (a SchedulesHandler) GetSchedulesByBlockAndStateHandle(ctx *gin.Context)
+
 func (a SchedulesHandler) UpdateScheduleHandle(ctx *gin.Context) {
 	var req model.Schedule
 

@@ -7,8 +7,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hiroki90/goringorin/go-crud-sample/db"
-	"github.com/hiroki90/goringorin/go-crud-sample/internal"
+	"github.com/hiroki90/goringorin/schedule-tool/db"
 )
 
 func main() {
@@ -16,11 +15,11 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	fmt.Println("hoge hoge")
 	conn, err := db.NewDBConnection()
 	if err != nil {
 		log.Fatal(err)
 	}
+	e := gin.Default()
 
 	// Account
 	accountsRepository := infra.NewAccountRepository(conn)
@@ -30,6 +29,15 @@ func main() {
 	e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)
 	e.PUT("/accounts", accountsHandler.UpdateAccountHandle)
 	e.DELETE("/accounts/:accountID", accountsHandler.DeleteAccountHandle)
+
+	// Schedule:12/30
+	schedulesRepository := infra.NewScheduleRepository(conn)
+	schedulesHandler := webapi.NewSchedulesHandler(schedulesRepository)
+
+	e.POST("/schedules", schedulesHandler.CreateScheduleHandle)
+	e.GET("/schedules/:scheduleID", schedulesHandler.GetScheduleHandle)
+	e.PUT("/schedules", schedulesHandler.UpdateScheduleHandle)
+	e.DELETE("/schedules/:scheduleID", schedulesHandler.DeleteScheduleHandle)
 
 	_ = e.Run(":" + port)
 }

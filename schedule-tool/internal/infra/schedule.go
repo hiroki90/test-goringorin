@@ -7,6 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
+//	CreateSchedule(Block, State, AccountID) error
+//  FindSchedule(AccountID) (Block, State, error)
+// TODO: Schedule->account->eventの順にinfra作っていく(0129)
+
 func NewScheduleRepository(conn *gorm.DB) *SchedulesRepository {
 	return &SchedulesRepository{conn: conn}
 }
@@ -25,14 +29,6 @@ func (a SchedulesRepository) Create(ctx context.Context, r *model.Schedule) erro
 	return nil
 }
 
-func (a SchedulesRepository) FindByID(ctx context.Context, id string) (*model.Schedule, error) {
-	var schedule model.Schedule
-	if err := a.conn.First(&schedule, id).Error; err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-	return &schedule, nil
-}
-
 func (a SchedulesRepository) FindByAccountID(ctx context.Context, accountID string) (*model.Schedules, error) {
 	var schedules model.Schedules
 	if err := a.conn.Where("account_id = ?", accountID).Find(&schedules).Error; err != nil {
@@ -41,28 +37,39 @@ func (a SchedulesRepository) FindByAccountID(ctx context.Context, accountID stri
 	return &schedules, nil
 }
 
-func (a SchedulesRepository) FindByBlockAndState(ctx context.Context, block int, state string) (*model.Schedules, error) {
-	var schedules model.Schedules
-	//TODO: blockを範囲指定にする
-	if err := a.conn.Where("block = ? AND state = ?", block, state).Find(&schedules).Error; err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-	return &schedules, nil
-}
+//func (a SchedulesRepository) FindByID(ctx context.Context, id string) (*model.Schedule, error) {
+//	var schedule model.Schedule
+//	if err := a.conn.First(&schedule, id).Error; err != nil {
+//		return nil, fmt.Errorf("%w", err)
+//	}
+//	return &schedule, nil
+//}
+
+//func (a SchedulesRepository) FindByBlockAndState(ctx context.Context, block int, state string) (*model.Accounts, error) {
+//	var schedules model.Schedules
+//	var accounts model.Accounts
+//	//TODO: blockを範囲指定にする(block time型で範囲指定する) sqlのBETWEEN
+//	//// BETWEEN
+//	//db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&users)
+//	//// SELECT * FROM users WHERE created_at BETWEEN '2000-01-01 00:00:00' AND '2000-01-08 00:00:00';
+//	if err := a.conn.Where("block = ? AND state = ?", block, state).Find(&schedules).Error; err != nil {
+//		return nil, fmt.Errorf("%w", err)
+//	}
+//	return &accounts, nil
+//}
 
 //TODO: (a SchedulesRepository) FindByAccountNameAndState(ctx context.Context, ) (*model.Schedules, error)
 
-
-func (a SchedulesRepository) Update(ctx context.Context, r *model.Schedule) error {
-	if err := a.conn.Updates(&r).Error; err != nil {
-		return fmt.Errorf("%w", err)
-	}
-	return nil
-}
-
-func (a SchedulesRepository) Delete(ctx context.Context, id string) error {
-	if err := a.conn.Delete(&model.Schedule{}, id).Error; err != nil {
-		return fmt.Errorf("%w", err)
-	}
-	return nil
-}
+//func (a SchedulesRepository) Update(ctx context.Context, r *model.Schedule) error {
+//	if err := a.conn.Updates(&r).Error; err != nil {
+//		return fmt.Errorf("%w", err)
+//	}
+//	return nil
+//}
+//
+//func (a SchedulesRepository) Delete(ctx context.Context, id string) error {
+//	if err := a.conn.Delete(&model.Schedule{}, id).Error; err != nil {
+//		return fmt.Errorf("%w", err)
+//	}
+//	return nil
+//}

@@ -7,6 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
+//  CreateAccount(Name) error
+//  UpdateAccount(ID, Schedules) error
+//	FindByID(ID) (model.Account, error)
+
 func NewAccountRepository(conn *gorm.DB) *AccountsRepository {
 	return &AccountsRepository{conn: conn}
 }

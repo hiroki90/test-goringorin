@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -14,12 +15,13 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-
+	fmt.Println("hoge hoge")
 	conn, err := db.NewDBConnection()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// web層
 	accountsRepository := internal.NewAccountsRepository(conn)
 	accountsHandler := internal.NewAccountsHandler(accountsRepository)
 

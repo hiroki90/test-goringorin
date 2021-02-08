@@ -4,8 +4,8 @@ import "time"
 
 type Schedule struct {
 	ID        string
-	Block     time.Time
-	State     State
+	Block     time.Time	// time型の日時
+	State     State	// Unknown,OK,NG
 	AccountID string
 }
 

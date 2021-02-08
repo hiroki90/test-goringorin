@@ -6,12 +6,15 @@ import (
 	"github.com/hiroki90/goringorin/schedule-tool/internal/model"
 	"gorm.io/gorm"
 )
-
+type Schedules interface{	// 引数と戻り値の型を定義
+	Find(ctx context.Context, accountID string) (*model.Schedules, error)
+	Create(ctx context.Context, r *model.Schedule) error
+}
 //	CreateSchedule(Block, State, AccountID) error
 //  FindSchedule(AccountID) (Block, State, error)
 // TODO: Schedule->account->eventの順にinfra作っていく(0129)
 
-func NewScheduleRepository(conn *gorm.DB) *SchedulesRepository {
+func NewSchedulesRepository(conn *gorm.DB) *SchedulesRepository {
 	return &SchedulesRepository{conn: conn}
 }
 
@@ -19,23 +22,29 @@ type SchedulesRepository struct {
 	conn *gorm.DB
 }
 
-func (a SchedulesRepository) Create(ctx context.Context, r *model.Schedule) error {
-	result := a.conn.Create(&r)
 
-	if result.Error != nil {
-		return fmt.Errorf("%w", result.Error)
-	}
-
-	return nil
+func (s SchedulesRepository) Find(ctx context.Context, accountID string) (*model.Schedule, error){
+	var schedule model.Schedule
+	return &schedule, nil
 }
 
-func (a SchedulesRepository) FindByAccountID(ctx context.Context, accountID string) (*model.Schedules, error) {
+func (s SchedulesRepository) FindByAccountID(ctx context.Context, accountID string) (*model.Schedules, error) {
 	var schedules model.Schedules
-	if err := a.conn.Where("account_id = ?", accountID).Find(&schedules).Error; err != nil {
+	if err := s.conn.Where("account_id = ?", accountID).Find(&schedules).Error; err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
 	return &schedules, nil
 }
+
+func (s SchedulesRepository) Create(ctx context.Context, r *model.Schedule) error {
+	result := s.conn.Create(&r)
+	if result.Error != nil {
+		return fmt.Errorf("%w", result.Error)
+	}
+	return nil
+}
+
+
 
 //func (a SchedulesRepository) FindByID(ctx context.Context, id string) (*model.Schedule, error) {
 //	var schedule model.Schedule

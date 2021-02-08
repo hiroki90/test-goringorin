@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
+// TODO: web層のCreate,Find新しく作る
 func NewSchedulesHandler(schedulesRepository *infra.SchedulesRepository) *SchedulesHandler {
 	return &SchedulesHandler{schedulesRepository: schedulesRepository}
 }

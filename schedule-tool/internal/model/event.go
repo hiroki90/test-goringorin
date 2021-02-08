@@ -4,5 +4,5 @@ type Event struct {
 	ID       string
 	Name     string
 	Accounts Accounts
-	Owner    Account
+	Owner    Account	//スケジュールの幹事のアカウント
 }

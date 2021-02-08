@@ -26,12 +26,13 @@ func main() {
 	accountsRepository := infra.NewAccountRepository(conn)
 	accountsService := service.NewAccountService(accountsRepository)
 	accountsHandler := webapi.NewAccountsHandler(accountsService)
-	// TODO: Service層を挟むので，ひとつずつ書き換え（メモ膨大になったら別のとこにでもok）
+	// TODO: Service層を挟むので，ひとつずつ書き換え（メモ：膨大になったら別のとこにでもok）
 
 	e.POST("/accounts", accountsHandler.CreateAccountHandle)
 	e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)
 	e.PUT("/accounts", accountsHandler.UpdateAccountHandle)
 	e.DELETE("/accounts/:accountID", accountsHandler.DeleteAccountHandle)
+
 
 	// Schedule:12/30
 	schedulesRepository := infra.NewScheduleRepository(conn)

@@ -23,27 +23,28 @@ func main() {
 	e := gin.Default()
 
 	// Account
-	accountsRepository := infra.NewAccountRepository(conn)
-	accountsService := service.NewAccountService(accountsRepository)
-	accountsHandler := webapi.NewAccountsHandler(accountsService)
+	//accountsRepository := infra.NewAccountRepository(conn)
+	//accountsService := service.NewAccountService(accountsRepository)
+	//accountsHandler := webapi.NewAccountsHandler(accountsService)
 	// TODO: Service層を挟むので，ひとつずつ書き換え（メモ：膨大になったら別のとこにでもok）
 
-	e.POST("/accounts", accountsHandler.CreateAccountHandle)
-	e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)
-	e.PUT("/accounts", accountsHandler.UpdateAccountHandle)
-	e.DELETE("/accounts/:accountID", accountsHandler.DeleteAccountHandle)
+	//e.POST("/accounts", accountsHandler.CreateAccountHandle)
+	//e.GET("/accounts/:accountID", accountsHandler.GetAccountHandle)
+	//e.PUT("/accounts", accountsHandler.UpdateAccountHandle)
+	//e.DELETE("/accounts/:accountID", accountsHandler.DeleteAccountHandle)
 
 
 	// Schedule:12/30
-	schedulesRepository := infra.NewScheduleRepository(conn)
-	schedulesService := service.NewScheduleService(schedulesRepository)
+	schedulesRepository := infra.NewSchedulesRepository(conn)
+	schedulesService := service.NewSchedulesService(schedulesRepository)
 	schedulesHandler := webapi.NewSchedulesHandler(schedulesService)
+	// 0212メモ: wireが便利，インジェクションを自動で定義してくれる
 	// TODO: Service層を挟むので，ひとつずつ書き換え（メモ膨大になったら別のとこにでもok）
 
+	e.GET("/schedules/:scheduleID", schedulesHandler.FindScheduleHandle)
 	e.POST("/schedules", schedulesHandler.CreateScheduleHandle)
-	e.GET("/schedules/:scheduleID", schedulesHandler.GetScheduleHandle)
-	e.PUT("/schedules", schedulesHandler.UpdateScheduleHandle)
-	e.DELETE("/schedules/:scheduleID", schedulesHandler.DeleteScheduleHandle)
+	//e.PUT("/schedules", schedulesHandler.UpdateScheduleHandle)
+	//e.DELETE("/schedules/:scheduleID", schedulesHandler.DeleteScheduleHandle)
 
 	// TODO: Event
 

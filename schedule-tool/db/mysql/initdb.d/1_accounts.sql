@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS accounts(
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- TODO: shedule_id 外部キー追加
+-- TODO: shedule追加
